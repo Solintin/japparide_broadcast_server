@@ -6,12 +6,10 @@ const io = require("socket.io")(3000, {
 });
 const express = require("express");
 const cors = require("cors");
-express.use(cors());
-// var clients = io.sockets.clients();
+var app = express();
 
-// console.log(clients);
-// const sockets = (await io.fetchSockets()).map(socket => socket.id);
-// console.log(sockets);
+app.use(cors());
+
 io.on("connect", (socket) => {
   console.log(socket.id);
   socket.on("send-request", (request) => {
