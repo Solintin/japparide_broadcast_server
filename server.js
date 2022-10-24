@@ -1,24 +1,23 @@
 const express = require("express");
 var app = express();
 let server = http.createServer(app);
-const environment = process.env.NODE_ENV || 'development';
-let port = environment === 'development' ? 3000 : server
-const io = require("socket.io")(port, 
-//   {
-//   cors: {
-//     // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
-//     origin: ["*"],
-//     handlePreflightRequestght: (req, res) => {
-//       res.writtenHead(200, {
-//         "Access-Control-Allow-Origin": "*",
-//         "Access-Control-Allow-Headers": "GET, POST",
-//         "Access-Control-Allow-Methods": "my-custom-header",
-//         "Access-Control-Allow-Credentials": true,
-//       });
-//       res.end()
-//     },
-//   },
-// }
+
+const io = require("socket.io")(server, 
+  {
+  cors: {
+    // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
+    origin: ["*"],
+    handlePreflightRequestght: (req, res) => {
+      res.writtenHead(200, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "GET, POST",
+        "Access-Control-Allow-Methods": "my-custom-header",
+        "Access-Control-Allow-Credentials": true,
+      });
+      res.end()
+    },
+  },
+}
 );
 io.set('origins', "*")
 const cors = require("cors");
@@ -35,3 +34,5 @@ io.on("connect", (socket) => {
     console.log(message);
   });
 });
+
+app.listen(3000)
