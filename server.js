@@ -3,6 +3,14 @@ const io = require("socket.io")(3000, {
     // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
     origins: ["*"],
     methods: ["GET", "POST"],
+    handlePreflightRequestght: (req, res) => {
+      res.writtenHead(200, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "GET, POST",
+        "Access-Control-Allow-Methods": "my-custom-header",
+        "Access-Control-Allow-Credentials": true,
+      });
+    },
   },
 });
 const express = require("express");
