@@ -9,6 +9,7 @@ const io = require("socket.io")(3000, {
         "Access-Control-Allow-Methods": "my-custom-header",
         "Access-Control-Allow-Credentials": true,
       });
+      res.end()
     },
   },
 });
