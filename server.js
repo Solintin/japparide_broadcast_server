@@ -6,12 +6,11 @@ let port = environment === 'development' &&  3000
 const io = require("socket.io")(server, 
   {
   cors: {
-    // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
-    origin: ["*"],
+    origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
     handlePreflightRequestght: (req, res) => {
       res.writtenHead(200, {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "GET, POST",
+        "Access-Control-Allow-Headers": "GET, POST, UPDATE, DELETE, PUT",
         "Access-Control-Allow-Methods": "my-custom-header",
         "Access-Control-Allow-Credentials": true,
       });
@@ -20,7 +19,6 @@ const io = require("socket.io")(server,
   },
 }
 );
-io.set('origins', "*")
 const cors = require("cors");
 app.use(cors());
 
