@@ -1,4 +1,9 @@
-const io = require("socket.io")(3000, 
+const express = require("express");
+var app = express();
+let server = http.createServer(app);
+const environment = process.env.NODE_ENV || 'development';
+let port = environment === 'development' ? 3000 : server
+const io = require("socket.io")(port, 
 //   {
 //   cors: {
 //     // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
@@ -16,10 +21,7 @@ const io = require("socket.io")(3000,
 // }
 );
 io.set('origins', "*")
-const express = require("express");
 const cors = require("cors");
-var app = express();
-
 app.use(cors());
 
 io.on("connect", (socket) => {
