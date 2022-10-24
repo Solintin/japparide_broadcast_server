@@ -2,7 +2,6 @@ const io = require("socket.io")(3000, {
   cors: {
     // origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
     origins: ["*"],
-    methods: ["GET", "POST"],
     handlePreflightRequestght: (req, res) => {
       res.writtenHead(200, {
         "Access-Control-Allow-Origin": "*",
