@@ -1,25 +1,14 @@
 const express = require("express");
 var app = express();
 let server = http.createServer(app);
-const environment = process.env.NODE_ENV || 'development';
-let port = environment === 'development' &&  3000 
-const io = require("socket.io")(server, 
-  {
+const environment = process.env.NODE_ENV || "development";
+let port = environment === "development" && 3000;
+const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:8080", "https://japparide.netlify.app/"],
-    handlePreflightRequestght: (req, res) => {
-      res.writtenHead(200, {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "GET, POST, UPDATE, DELETE, PUT",
-        "Access-Control-Allow-Methods": "my-custom-header",
-        "Access-Control-Allow-Credentials": true,
-      });
-      res.end()
-    },
+    origin: "*",
   },
-}
-);
-io.origins('*:*')
+});
+io.origins("*:*");
 const cors = require("cors");
 app.use(cors());
 
@@ -35,4 +24,4 @@ io.on("connect", (socket) => {
   });
 });
 
-app.listen(port)
+app.listen(port);
