@@ -19,6 +19,7 @@ const io = require("socket.io")(server,
   },
 }
 );
+io.origins('*:*')
 const cors = require("cors");
 app.use(cors());
 
