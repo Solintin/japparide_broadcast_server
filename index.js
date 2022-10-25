@@ -5,8 +5,8 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "*",
-    // origin: ['http://localhost:8080', 'https://japparide.netlify.app'],
+    // origin: "*",
+    origin: "https://japparide.netlify.app",
   },
 });
 
