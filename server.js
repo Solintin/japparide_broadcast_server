@@ -7,7 +7,7 @@ let port = environment === "development" && 3000;
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["https://japparide.netlify.app", "localhost:3000"]
   },
 });
 const cors = require("cors");
