@@ -7,7 +7,6 @@ let port = environment === "development" && 3000;
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
-    // origin: ['http://localhost:8080', 'https://japparide.netlify.app'],
   },
 });
 const cors = require("cors");
@@ -23,8 +22,17 @@ io.on("connect", (socket) => {
     io.to(passenger).emit("get-accept", message);
     console.log(message);
   });
+
+  socket.on("passenger-cancel-request", () => {
+    io.emit("get-passenger-cancel-request");
+    console.log("Request Cancel from passenger");
+  });
+  socket.on("driver-cancel-request", (user) => {
+    io.to(user).emit("get-driver-cancel-request");
+    console.log("Request Cancel from driver");
+  });
 });
 
 server.listen(port, () => {
-  console.log("listening on" + port);
+  console.log("listening on port " + port);
 });
