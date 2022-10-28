@@ -31,6 +31,11 @@ io.on("connect", (socket) => {
     io.to(user).emit("get-driver-cancel-request");
     console.log("Request Cancel from driver");
   });
+  socket.on("ride-completed", (user) => {
+    console.log(user)
+    io.to(user).emit("get-ride-completed");
+    console.log("Ride Completed");
+  });
 });
 
 server.listen(port, () => {
