@@ -1,10 +1,11 @@
 const express = require("express");
 var app = express();
-const http = require('http');
+const http = require("http");
 let server = http.createServer(app);
 const environment = process.env.NODE_ENV || "development";
 let port = environment === "development" && 3000;
-const io = require("socket.io")(server, {
+const { Server } = require("socket.io");
+const io = new Server(server, {
   cors: {
     origin: "*",
   },
@@ -32,7 +33,7 @@ io.on("connect", (socket) => {
     console.log("Request Cancel from driver");
   });
   socket.on("ride-completed", (user) => {
-    console.log(user)
+    console.log(user);
     io.to(user).emit("get-ride-completed");
     console.log("Ride Completed");
   });
