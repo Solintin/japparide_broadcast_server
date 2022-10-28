@@ -4,12 +4,15 @@ const http = require("http");
 let server = http.createServer(app);
 const environment = process.env.NODE_ENV || "development";
 let port = environment === "development" && 3000;
-const { Server } = require("socket.io");
-const io = new Server(server, {
+const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["https://japparide.netlify.app", "localhost:8080"]
-  },
+    origin: "https://japparide.netlify.app",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
 });
+
 const cors = require("cors");
 app.use(cors());
 
