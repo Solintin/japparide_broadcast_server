@@ -6,10 +6,8 @@ const environment = process.env.NODE_ENV || "development";
 let port = environment === "development" && 3000;
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "https://japparide.netlify.app",
+    origin: "*",
     methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
   }
 });
 
