@@ -37,6 +37,11 @@ io.on("connect", (socket) => {
     io.to(user).emit("get-ride-completed");
     console.log("Ride Completed");
   });
+  socket.on("driver-start-ride", (user) => {
+    console.log(user);
+    io.to(user).emit("get-start-ride");
+    console.log("Ride Completed");
+  });
 });
 
 server.listen(port, () => {
