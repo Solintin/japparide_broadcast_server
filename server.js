@@ -40,7 +40,7 @@ io.on("connect", (socket) => {
   socket.on("driver-start-ride", (user) => {
     console.log(user);
     io.to(user).emit("get-start-ride");
-    console.log("Ride Completed");
+    console.log("Ride started");
   });
 });
 
