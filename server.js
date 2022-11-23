@@ -19,8 +19,8 @@ io.on("connect", (socket) => {
     io.emit("get-request", request);
     console.log(request);
   });
-  socket.on("send-accept", (message, passenger) => {
-    io.to(passenger).emit("get-accept", message);
+  socket.on("send-accept", (message, passenger, driver) => {
+    io.to(passenger).emit("get-accept", driver);
     console.log(message);
   });
 
