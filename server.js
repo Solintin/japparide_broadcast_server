@@ -24,8 +24,8 @@ io.on("connect", (socket) => {
     console.log(message);
   });
 
-  socket.on("passenger-cancel-request", () => {
-    io.emit("get-passenger-cancel-request");
+  socket.on("passenger-cancel-request", (driver) => {
+    io.to(driver).emit("get-passenger-cancel-request");
     console.log("Request Cancel from passenger");
   });
   socket.on("driver-cancel-request", (user) => {
