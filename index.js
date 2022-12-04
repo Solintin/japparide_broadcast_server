@@ -2,12 +2,15 @@
 
 const express = require('express');
 const socketIO = require('socket.io');
+var app = express();
 
+const cors = require("cors");
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
 const server = express()
-  .use((req, res) => res.sendFile("Hello Websocket"))
+  .use((req, res) => res.send("Hello Websocket"))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server,  {
