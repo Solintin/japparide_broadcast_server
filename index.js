@@ -3,7 +3,7 @@
 const express = require('express');
 const socketIO = require('socket.io');
 var app = express();
-
+require('dotenv').config()
 const cors = require("cors");
 app.use(
   cors({
