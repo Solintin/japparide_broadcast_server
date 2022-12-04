@@ -1,7 +1,5 @@
-'use strict';
-
 const express = require('express');
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
 var app = express();
 require('dotenv').config()
 const cors = require("cors");
@@ -15,9 +13,9 @@ app.use(
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
-const server = express()
-  .use((req, res) => res.send("Hello Websocket"))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const server = express();
+server.use('/', (req, res) => res.send("Hello Websocket"))
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // const io = socketIO(server,  {
 //   cors: {
