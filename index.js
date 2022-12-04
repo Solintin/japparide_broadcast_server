@@ -13,9 +13,8 @@ app.use(
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
-const server = express();
-server.use('/', (req, res) => res.send("Hello Websocket"))
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.use('/', (req, res) => res.send("Hello Websocket"))
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // const io = socketIO(server,  {
 //   cors: {
