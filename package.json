@@ -2,11 +2,11 @@
   "name": "broadcast_server",
   "version": "1.0.0",
   "description": "",
-  "main": "server-copy.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server-copy.js",
-    "dev": "nodemon server-copy.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
