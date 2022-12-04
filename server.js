@@ -1,14 +1,14 @@
 const express = require("express");
 var app = express();
 const http = require("http");
-const server = http.createServer(app);
+let server = http.createServer(app);
+let port = process.env.PORT || 3000;
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://app.japparide.com",
-    methods: ["GET", "POST"]
-  }
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
-
 
 const cors = require("cors");
 app.use(cors());
