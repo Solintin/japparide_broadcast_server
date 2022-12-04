@@ -5,7 +5,13 @@ const socketIO = require('socket.io');
 var app = express();
 
 const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+    credentials: false,
+  })
+);
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
@@ -16,6 +22,7 @@ const server = express()
 const io = socketIO(server,  {
   cors: {
     origin: "*",
+    
   },
 });
 
