@@ -6,9 +6,10 @@ let port = process.env.PORT || 3000;
 const { Server } = require("socket.io");
 const io = new Server(httpServer, {
   cors: {
-    origin: "*",
+    origins: "*",
   },
 });
+
 
 const cors = require("cors");
 app.use(cors());
