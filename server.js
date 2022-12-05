@@ -119,6 +119,9 @@ io.on("connect", (socket) => {
       if (randomDriverId < 0) {
         randomDriverId = randomDriverId * -1;
       }
+      if (randomDriverId === 1) {
+        randomDriverId = 0
+      }
       console.log(randomDriverId);
       console.log(drivers.length);
       io.to(drivers[randomDriverId].socket_id).emit("get-request", request);
