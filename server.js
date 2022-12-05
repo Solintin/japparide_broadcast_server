@@ -36,6 +36,8 @@ function toRad(Value) {
 }
 let users = [];
 let drivers = [];
+let tricycleDriver = []
+let carDriver = []
 let distanceGenerator = [];
 const addUsers = (newUser) => {
   const isExist = users.some((x) => x.userId === newUser.userId);
@@ -57,6 +59,8 @@ io.on("connect", (socket) => {
   socket.on("send-request", (request) => {
     //request.user = passenger
     console.log("All drivers ", drivers);
+
+    
     io.to(request.user).emit("get-drivers", drivers);
     console.log("Request sent ", request);
 
