@@ -38,6 +38,7 @@ let users = [];
 let drivers = [];
 let tricycleDriver = []
 let carDriver = []
+let prefferedDrivers = []
 let distanceGenerator = [];
 const addUsers = (newUser) => {
   const isExist = users.some((x) => x.userId === newUser.userId);
@@ -50,8 +51,13 @@ const addUsers = (newUser) => {
 };
 const addDrivers = () => {
   const getDrivers = users.filter((x) => x.userType === "driver");
-  // console.log(getDrivers);
   drivers = getDrivers;
+  tricycleDriver = drivers.filter((x) => x.vehicleType.toLowerCase() === "tricycle");
+  carDriver = drivers.filter((x) => x.vehicleType.toLowerCase() === "car");
+  console.log('tricycleDriver', tricycleDriver);
+  console.log( 'carDriver',carDriver);
+
+
 };
 
 io.on("connect", (socket) => {
@@ -60,12 +66,13 @@ io.on("connect", (socket) => {
     //request.user = passenger
     console.log("All drivers ", drivers);
 
-    
-    io.to(request.user).emit("get-drivers", drivers);
+    prefferedDrivers = request.data.rideMode.toLowerCase() === 'car' ? carDriver : tricycleDriver
+    console.log(prefferedDrivers);
+    io.to(request.user).emit("get-drivers", prefferedDrivers);
     console.log("Request sent ", request);
 
     //calcualte distance
-    drivers.forEach(function (driver, idx) {
+    prefferedDrivers.forEach(function (driver, idx) {
       const distance = calcCrow(
         driver.driverLat,
         driver.driverLon,
@@ -78,12 +85,12 @@ io.on("connect", (socket) => {
     });
 
     // io.emit("get-request", request);
-    if (drivers.length > 0) {
+    if (prefferedDrivers.length > 0) {
       //get nearest driverID on first search
       const { idx } = distanceGenerator.reduce(function (prev, curr) {
         return prev.distance < curr.distance ? prev : curr;
       });
-      io.to(drivers[idx].socket_id).emit("get-request", request);
+      io.to(prefferedDrivers[idx].socket_id).emit("get-request", request);
       //empty the array after choosing nearest driver
       distanceGenerator = [];
     }
@@ -111,10 +118,10 @@ io.on("connect", (socket) => {
   });
   socket.on("driver-cancel-request", (user, request) => {
     //Re-route cancelled request to another Driver
-    if (drivers.length > 0) {
+    if (prefferedDrivers.length > 1) {
       console.log("re-routing");
       console.log("re-routing-data ", request);
-      let randomDriverId = Math.floor(Math.random() * drivers.length - 1);
+      let randomDriverId = Math.floor(Math.random() * prefferedDrivers.length - 1);
       //controls negative Index
       if (randomDriverId < 0) {
         randomDriverId = randomDriverId * -1;
@@ -123,8 +130,8 @@ io.on("connect", (socket) => {
         randomDriverId = 0
       }
       console.log(randomDriverId);
-      console.log(drivers.length);
-      io.to(drivers[randomDriverId].socket_id).emit("get-request", request);
+      console.log(prefferedDrivers.length);
+      io.to(prefferedDrivers[randomDriverId].socket_id).emit("get-request", request);
     }
     // io.to(user).emit("get-driver-cancel-request");
     console.log("Request Cancel from driver");
